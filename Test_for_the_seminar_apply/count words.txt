@@ -1,0 +1,24 @@
+#LISTING WORDS CONNECTION
+
+import sklearn
+from sklearn.feature_extraction.text import CountVectorizer
+cv = CountVectorizer(analyzer='word', ngram_range=(1, 1))
+
+import numpy as np
+df_count_nonreco=pd.DataFrame([])
+count_nonreco = cv.fit_transform(list_nonreco)
+df_count_nonreco["vec"] = list(cv.get_feature_names())
+df_count_nonreco["frequency"]= list(np.sum(count_nonreco.toarray(), axis = 0))
+df_count_nonreco.sort_values(by=["frequency"], ascending = False)
+
+
+print(df_count_nonreco.head())
+
+cv1 = CountVectorizer(analyzer='word', ngram_range=(1, 1))
+df_count_reco=pd.DataFrame([])
+count_reco = cv1.fit_transform(list_reco)
+df_count_reco["vec"] = list(cv1.get_feature_names())
+df_count_reco["frequency"]= list(np.sum(count_reco.toarray(), axis = 0))
+df_count_reco.sort_values(by=["frequency"], ascending = False)
+
+print(df_count_reco.head())
